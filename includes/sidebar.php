@@ -30,7 +30,7 @@
     <div class="user-profile">
         <img src="../assets/images/Capivara Gamer.jpeg" alt="User">
         <div class="user-info">
-            <h4><?= $_SESSION['user_name']; ?></h4>
+            <h4><?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest'; ?></h4>
             <p>User</p>
         </div>
     </div>

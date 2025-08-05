@@ -416,6 +416,7 @@ th {
 
 .product-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -610,3 +611,5 @@ th {
         max-width: 100%;
     }
 }
+
+/* products */

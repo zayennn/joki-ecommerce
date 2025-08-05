@@ -99,3 +99,118 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCartCount();
     }
 });
+
+// products
+document.addEventListener('DOMContentLoaded', function() {
+    // Product quick actions
+    const quickViewButtons = document.querySelectorAll('.quick-view');
+    const quickCartButtons = document.querySelectorAll('.quick-cart');
+    
+    quickViewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const productCard = this.closest('.product-card');
+            const productTitle = productCard.querySelector('.product-title').textContent;
+            alert(`Quick View: ${productTitle}`);
+        });
+    });
+    
+    quickCartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const productCard = this.closest('.product-card');
+            const productTitle = productCard.querySelector('.product-title').textContent;
+            alert(`Added to cart: ${productTitle}`);
+            
+            // Update cart count
+            const currentCount = parseInt(document.querySelector('.cart-count').textContent);
+            document.querySelectorAll('.cart-count').forEach(count => {
+                count.textContent = currentCount + 1;
+            });
+        });
+    });
+    
+    // Product edit and delete buttons
+    const editButtons = document.querySelectorAll('.edit-btn');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const productTitle = productCard.querySelector('.product-title').textContent;
+            alert(`Edit product: ${productTitle}`);
+        });
+    });
+    
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const productTitle = productCard.querySelector('.product-title').textContent;
+            
+            if (confirm(`Are you sure you want to delete ${productTitle}?`)) {
+                productCard.remove();
+                alert(`${productTitle} has been deleted`);
+            }
+        });
+    });
+    
+    // Format prices
+    const formatPrices = () => {
+        const prices = document.querySelectorAll('.current-price, .original-price');
+        
+        prices.forEach(price => {
+            const value = price.textContent.replace('Rp ', '').replace(/\./g, '');
+            price.textContent = 'Rp ' + parseInt(value).toLocaleString('id-ID');
+        });
+    };
+    
+    formatPrices();
+    
+    // Pagination
+    const pageButtons = document.querySelectorAll('.page-btn:not(.disabled)');
+    
+    pageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (this.classList.contains('active')) return;
+            
+            document.querySelector('.page-btn.active').classList.remove('active');
+            this.classList.add('active');
+            // Here you would typically load new page content
+        });
+    });
+    
+    // Product search
+    const searchInput = document.querySelector('.product-search input');
+    const searchButton = document.querySelector('.product-search button');
+    
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    function performSearch() {
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm) {
+            alert(`Searching for: ${searchTerm}`);
+            // Here you would typically filter products
+        }
+    }
+    
+    // Filter functionality
+    const categoryFilter = document.getElementById('category');
+    const stockFilter = document.getElementById('stock');
+    const sortFilter = document.getElementById('sort');
+    
+    [categoryFilter, stockFilter, sortFilter].forEach(filter => {
+        filter.addEventListener('change', function() {
+            const category = categoryFilter.value;
+            const stock = stockFilter.value;
+            const sort = sortFilter.value;
+            
+            console.log(`Filters changed - Category: ${category}, Stock: ${stock}, Sort: ${sort}`);
+            // Here you would typically filter and sort products
+        });
+    });
+});
