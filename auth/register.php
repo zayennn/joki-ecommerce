@@ -17,7 +17,7 @@ if ($cek->num_rows > 0) {
     die("Email sudah digunakan!");
 }
 
-$sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed')";
+$sql = "INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$hashed', 'user')";
 if ($conn->query($sql) === TRUE) {
     echo "Registrasi berhasil";
 } else {

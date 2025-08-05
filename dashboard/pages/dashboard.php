@@ -1,3 +1,5 @@
+<?php include '../middleware/admin.php'; ?>
+
 <header>
     <h1>Dashboard</h1>
 </header>

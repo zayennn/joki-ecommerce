@@ -6,12 +6,14 @@
     </div>
     <nav>
         <ul>
-            <li class="<?= (isset($_GET['page']) && $_GET['page'] == 'dashboard') || !isset($_GET['page']) ? 'active' : '' ?>">
-                <a href="home.php?page=dashboard">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-            </li>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                <li class="<?= (isset($_GET['page']) && $_GET['page'] == 'dashboard') || !isset($_GET['page']) ? 'active' : '' ?>">
+                    <a href="home.php?page=dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+            <?php endif; ?>
             <li class="<?= (isset($_GET['page']) && $_GET['page'] == 'products') ? 'active' : '' ?>">
                 <a href="home.php?page=products">
                     <i class="fas fa-box-open"></i>
@@ -31,7 +33,7 @@
         <img src="../assets/images/Capivara Gamer.jpeg" alt="User">
         <div class="user-info">
             <h4><?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest'; ?></h4>
-            <p>User</p>
+            <p><?= ucfirst($_SESSION['role']) ?></p>
         </div>
     </div>
 </div>
